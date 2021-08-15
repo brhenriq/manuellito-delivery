@@ -17,7 +17,7 @@ class Product {
   brand: string;
 
   @OneToOne(() => Category)
-  @JoinColumn({name: 'address_id'})
+  @JoinColumn({name: 'category_id'})
   category: Category;
 
   @Column()

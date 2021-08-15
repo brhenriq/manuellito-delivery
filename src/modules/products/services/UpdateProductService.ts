@@ -10,10 +10,11 @@ interface IRequest {
   brand: string;
   price: number;
   quantity: number;
+  category_id: string;
 }
 
 class UpdateProductService {
-  public async execute({ id, name, price, quantity, description, brand } : IRequest): Promise<Product> {
+  public async execute({ id, name, price, quantity, description, brand, category_id } : IRequest): Promise<Product> {
     const productsRepository = getCustomRepository(ProductRepository);
 
     const product = await productsRepository.findOne(id);
@@ -33,6 +34,7 @@ class UpdateProductService {
     product.quantity = quantity;
     product.description = description;
     product.brand = brand;
+    product.category_id = category_id;
 
     await productsRepository.save(product);
 
