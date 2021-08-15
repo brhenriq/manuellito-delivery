@@ -1,8 +1,9 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import Address from "./Address";
 
 
 @Entity('users')
-class Product {
+class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -10,19 +11,26 @@ class Product {
   name: string;
 
   @Column()
-  description: string;
+  last_name: string;
 
   @Column()
-  brand: string;
+  cpf: string;
 
-  @Column('decimal')
-  price: number;
+  @Column()
+  password: string;
 
-  @Column('int')
-  quantity: number;
+  @Column()
+  email: string;
 
-  @Column('int')
-  minimal_quantity: number;
+  @Column()
+  phone_number: string;
+  
+  @Column()
+  address_id: string;
+
+  @OneToOne(() => Address)
+  @JoinColumn({name: 'address_id'})
+  address: Address;
 
   @CreateDateColumn()
   created_at: Date;
@@ -31,4 +39,4 @@ class Product {
   updated_at: Date;
 }
 
-export default Product;
+export default User;

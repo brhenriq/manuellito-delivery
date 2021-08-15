@@ -1,14 +1,10 @@
-import { EntityRepository, In, Repository } from "typeorm";
+import { EntityRepository, Repository } from "typeorm";
 import User from "../entities/User";
 
-interface IFindUsers {
-  id: string;
-}
-
 @EntityRepository(User)
-class UserRepository extends Repository<User> {
+class UsersRepository extends Repository<User> {
   public async findByName(name: string): Promise<User | undefined> {
-    const user = this.findOne({
+    const user = await this.findOne({
       where: {
         name,
       }
@@ -17,17 +13,25 @@ class UserRepository extends Repository<User> {
     return user;
   }
 
-  public async findAllByIds(users: IFindUsers[]): Promise<User[]> {
-    const userIds = users.map(user => user.id);
-
-    const existsUsers = await this.find({
+  public async findById(id: string): Promise<User | undefined> {
+    const user = await this.findOne({
       where: {
-        id: In(userIds)
+        id,
       }
     });
 
-    return existsUsers;
+    return user;
+  }
+
+  public async findByEmail(email: string): Promise<User | undefined> {
+    const user = await this.findOne({
+      where: {
+        email,
+      }
+    });
+
+    return user;
   }
 }
 
-export default UserRepository;
+export default UsersRepository;

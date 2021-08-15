@@ -13,7 +13,7 @@ export class CreateAddress1628972879040 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'CEP',
+            name: 'cep',
             type: 'varchar'
           },
           {  

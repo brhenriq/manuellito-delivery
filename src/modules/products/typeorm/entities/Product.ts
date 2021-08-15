@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import Category from "./Category";
 
 
 @Entity('products')
@@ -14,6 +15,13 @@ class Product {
 
   @Column()
   brand: string;
+
+  @OneToOne(() => Category)
+  @JoinColumn({name: 'address_id'})
+  category: Category;
+
+  @Column()
+  category_id: string;
 
   @Column('decimal')
   price: number;
