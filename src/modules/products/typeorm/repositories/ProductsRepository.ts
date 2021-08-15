@@ -17,6 +17,14 @@ class ProductRepository extends Repository<Product> {
     return product;
   }
 
+  public async findById(id: string): Promise<Product | undefined> {
+    const product = this.findOne(id, {
+      relations: ['category'],
+    });
+
+    return product;
+  }
+
   public async findAllByIds(products: IFindProducts[]): Promise<Product[]> {
     const productIds = products.map(product => product.id);
 
