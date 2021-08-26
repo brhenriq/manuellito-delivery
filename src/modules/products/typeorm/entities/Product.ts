@@ -1,10 +1,11 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import OrdersProducts from "@modules/orders/typeorm/entities/OrdersProducts";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import Category from "./Category";
 
 
-@Entity('products')
+@Entity("products")
 class Product {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
@@ -17,20 +18,23 @@ class Product {
   brand: string;
 
   @OneToOne(() => Category)
-  @JoinColumn({name: 'category_id'})
+  @JoinColumn({ name: "category_id" })
   category: Category;
 
   @Column()
   category_id: string;
 
-  @Column('decimal')
+  @Column("decimal")
   price: number;
 
-  @Column('int')
+  @Column("int")
   quantity: number;
 
-  @Column('int')
+  @Column("int")
   minimal_quantity: number;
+
+  @OneToMany(() => OrdersProducts, (order_products) => order_products.product)
+  order_products: OrdersProducts[];
 
   @CreateDateColumn()
   created_at: Date;
