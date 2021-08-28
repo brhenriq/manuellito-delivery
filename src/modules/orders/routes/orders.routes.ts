@@ -1,3 +1,4 @@
+import isAuthenticated from "@shared/http/middlewares/isAuthenticated";
 import { Router } from "express";
 import OrdersController from "../controllers/OrdersController";
 
@@ -13,6 +14,7 @@ ordersRouter.get(
 
 ordersRouter.post(
   "/",
+  isAuthenticated,
   ordersController.create
 );
 
