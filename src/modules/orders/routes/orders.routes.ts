@@ -12,6 +12,8 @@ ordersRouter.get(
   ordersController.show
 );
 
+ordersRouter.get("/user/:user_id", ordersController.listForUser);
+
 ordersRouter.post(
   "/",
   isAuthenticated,

@@ -19,6 +19,11 @@ export class CreateOrders1629771666446 implements MigrationInterface {
             isNullable: true,
           },
           {
+            name: "status",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
             name: "created_at",
             type: "timestamp with time zone",
             default: "now()",
