@@ -24,7 +24,7 @@ class CreateOrderService {
     const userExists = await usersRepository.findById(user_id);
 
     if (!userExists) {
-      throw new AppError("Could not find any customer with the given id.");
+      throw new AppError("Could not find any user with the given id.");
     }
 
     const existsProducts = await productsRepository.findAllByIds(products);
@@ -63,9 +63,16 @@ class CreateOrderService {
       price: existsProducts.filter((p) => p.id === product.id)[0].price,
     }));
 
+    let total = 0;
+
+    for (let i = 0; i < serializedProducts.length; i++) {
+      total += Number(serializedProducts[i].price)
+    }
+
     const order = await ordersRepository.createOrder({
       user: userExists,
       products: serializedProducts,
+      total
     });
 
     const { order_products } = order;

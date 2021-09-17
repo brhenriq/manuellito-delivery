@@ -1,4 +1,5 @@
 import {
+  Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
@@ -23,6 +24,12 @@ class Order {
     cascade: true,
   })
   order_products: OrdersProducts[];
+
+  @Column()
+  status: string;
+
+  @Column()
+  total: number;
 
   @CreateDateColumn()
   created_at: Date;

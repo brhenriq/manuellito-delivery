@@ -20,4 +20,6 @@ ordersRouter.post(
   ordersController.create
 );
 
+ordersRouter.patch("/status/:order_id", ordersController.updateOrderStatus);
+
 export default ordersRouter;

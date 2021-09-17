@@ -3,6 +3,7 @@ import CreateOrderService from "../services/CreateOrderService";
 import ListOrdersForUserService from "../services/ListOrdersForUserService";
 import ListOrderService from "../services/ListOrdersService";
 import ShowOrderService from "../services/ShowOrderService";
+import UpdateStatusService from "../services/UpdateStatusService";
 
 export default class OrdersController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -33,11 +34,27 @@ export default class OrdersController {
     return response.json(order);
   }
 
-  public async listForUser(request: Request, response: Response): Promise<Response> {
+  public async listForUser(
+    request: Request,
+    response: Response
+  ): Promise<Response> {
     const listOrders = new ListOrdersForUserService();
     const { user_id } = request.params;
 
     const orders = await listOrders.execute({ user_id });
+
+    return response.json(orders);
+  }
+
+  public async updateOrderStatus(
+    request: Request,
+    response: Response
+  ): Promise<Response> {
+    const listOrders = new UpdateStatusService();
+    const { order_id } = request.params;
+    const { status } = request.body;
+
+    const orders = await listOrders.execute({ order_id, status });
 
     return response.json(orders);
   }
